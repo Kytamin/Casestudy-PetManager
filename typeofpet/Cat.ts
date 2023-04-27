@@ -1,4 +1,4 @@
-import {Pet, Type} from "../Pet";
+import {Pet} from "../Pet";
 
 export class Cat extends Pet {
     countShower: number = 0
@@ -7,10 +7,9 @@ export class Cat extends Pet {
     costFeed:number=50000
     countVaccination: number = 0
     costVaccination=200000
-    countDeWorming: number = 0
-    costDeWorming:number=190000
-    constructor(petName: string, type: Type.Cat, vaccine: boolean, clean: boolean, deWorm: boolean, eatFull: boolean) {
-        super(petName, type, vaccine, clean, deWorm, eatFull);
+
+    constructor(petName: string, type: string, vaccine: boolean, clean: boolean,eatFull: boolean) {
+        super(petName, type, vaccine, clean,eatFull);
     }
 
     feed(): void {
@@ -27,10 +26,4 @@ export class Cat extends Pet {
         this.setVaccine(true)
         this.countVaccination++
     }
-
-    deWorming(): void {
-        this.setDeWorm(true)
-        this.countDeWorming++
-    }
-
 }

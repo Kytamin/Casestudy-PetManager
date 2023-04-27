@@ -2,20 +2,20 @@ import {Cat} from "./typeofpet/Cat";
 import {Dog} from "./typeofpet/Dog";
 import {Mouse} from "./typeofpet/Mouse";
 
+
 export class Customer {
     protected _name:string
     protected _address:string
     protected _numberPhone:string
     protected _id:number
-    protected _pet:Cat|Dog|Mouse
+    protected _pet:Array<Cat|Dog|Mouse>=[]
 
 
-    constructor(name: string, address: string, numberPhone: string, id: number,pet:Cat|Dog|Mouse) {
+    constructor(name: string, address: string, numberPhone: string, id: number) {
         this._name = name;
         this._address = address;
         this._numberPhone = numberPhone;
         this._id = id;
-        this._pet=pet
     }
 
     getName(): string {
@@ -50,18 +50,62 @@ export class Customer {
         this._id = value;
     }
 
-    getPet(): Cat|Dog|Mouse {
-        return this._pet;
+   addCat(petName:string,type:string,vaccine: boolean, clean: boolean,eatFull: boolean){
+        this._pet.push(new Cat(petName,type,vaccine,clean,eatFull))
+    }
+    addDog(petName:string,type:string,vaccine: boolean, clean: boolean, eatFull: boolean){
+        this._pet.push(new Dog(petName,type,vaccine,clean,eatFull))
+    }
+    addMouse(petName:string,type:string,vaccine: boolean, clean: boolean, eatFull: boolean){
+        this._pet.push(new Mouse(petName,type,vaccine,clean,eatFull))
+    }
+    getPetList():Array<Cat|Dog|Mouse>{
+        return this._pet
+    }
+    FindPetByName(petName:string){
+        let i=-1
+        this._pet.forEach((pet,index)=>{
+            if(pet.getPetName()===petName){
+                i=index
+            }
+        })
+        return i
+    }
+    findPet(petName:string):Cat|Dog|Mouse{
+        let index=this.FindPetByName(petName)
+        if(index!==-1){
+            let pet = this._pet[index]
+            if(pet!==undefined){
+                return pet
+            }
+        }
+        return this._pet[index]
     }
 
-    setPet(value: Cat|Dog|Mouse):void {
-        this._pet = value;
-    }
 
+
+    deletePet(petName:string):void{
+        let index=this.FindPetByName(petName)
+        if(index!==-1){
+             this._pet.splice(index,1)
+        }
+    }
+    fixInfoPet(petName:string,newName:string,type:string,vaccinated:boolean,clean:boolean,eatFull:boolean):void{
+        let index=this.FindPetByName(petName)
+        if(index!==-1){
+            this._pet[index].setPetName(newName)
+            this._pet[index].setType(type)
+            this._pet[index].setVaccine(vaccinated)
+            this._pet[index].setClean(clean)
+            this._pet[index].setEatFull(eatFull)
+        }
+
+    }
     getTotalMoney():number{
         let total=0
-
-        total =this._pet.countFeed*this._pet.costFeed+this._pet.countShower*this._pet.costShower+this._pet.countVaccination*this._pet.costVaccination+this._pet.countDeWorming*this._pet.costDeWorming
+        this._pet.forEach((element)=>{
+            total+=element.countFeed*element.costFeed+element.countShower*element.costShower+element.countVaccination*element.costVaccination
+        })
         return  total
     }
 

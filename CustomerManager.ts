@@ -6,22 +6,6 @@ import {Mouse} from "./typeofpet/Mouse";
 export class CustomerManager {
     customerList: Customer[] = []
     size: number = 0
-
-    addCustomer(name:string,address:string,numberPhone:string,id:number,pet:Cat|Dog|Mouse):void{
-        if(this.checkIDinList(id)){
-            console.log(`id:${id} is Existed `)
-        } else {
-            this.customerList.push( new Customer(name, address, numberPhone, id, pet))
-        }
-        this.customerList.sort((customer1,customer2)=>{
-            return customer1.getID()-customer2.getID()
-        })
-    }
-
-    displayList(): Customer[] {
-        return this.customerList
-    }
-
     checkIDinList(id: number): boolean {
         let count = 0
         this.customerList.forEach((element) => {
@@ -34,6 +18,23 @@ export class CustomerManager {
         }
         return false
     }
+
+    addCustomer(name:string,address:string,numberPhone:string,id:number):void{
+        if(this.checkIDinList(id)){
+            console.log(`id:${id} is Existed `)
+        } else {
+            this.customerList.push( new Customer(name, address, numberPhone, id))
+        }
+        this.customerList.sort((customer1,customer2)=>{
+            return customer1.getID()-customer2.getID()
+        })
+    }
+
+    displayList(): Customer[] {
+        return this.customerList
+    }
+
+
 
 
 
@@ -64,13 +65,13 @@ export class CustomerManager {
         }
     }
 
-    fixInfo(id: number, name: string, address: string, numberPhone: string, pet: Cat|Dog|Mouse): void {
+    fixInfo(id: number, name: string, address: string, numberPhone: string ): void {
         let index = this.findInfoByID(id)
         if (index !== -1) {
             this.customerList[index].setName(name)
             this.customerList[index].setAddress(address)
             this.customerList[index].setNumberPhone(numberPhone)
-            this.customerList[index].setPet(pet)
+
         }
     }
 
@@ -87,18 +88,6 @@ export class CustomerManager {
 
         }
         return this.customerList[index]
-    }
-
-
-    displayPetOfCustomer(id: number): Cat|Dog|Mouse {
-        let index = this.findInfoByID(id)
-        if (index !== -1) {
-            let pet =this.customerList[index].getPet()
-            if(pet!==undefined){
-                return pet
-            }
-        }
-        return  this.customerList[index].getPet()
     }
 
     totalRevenue():number{

@@ -1,27 +1,19 @@
 import {Customer} from "./Customer";
 
-export enum Type {
-    Cat=1,
-    Dog=2,
-    mouse,
-    other
 
-}
 export class Pet {
     private _petName:string
-    private _type:Type
+    private _type:string
     private _vaccine:boolean
     private _clean:boolean
-    private _deWorm:boolean
     private _eatFull:boolean
 
 
-    constructor(petName: string, type: Type, vaccine: boolean, clean: boolean, deWorm: boolean, eatFull: boolean) {
+    constructor(petName: string, type: string, vaccine: boolean, clean: boolean, eatFull: boolean) {
         this._petName = petName;
         this._type = type;
         this._vaccine = vaccine;
         this._clean = clean;
-        this._deWorm = deWorm;
         this._eatFull = eatFull;
     }
 
@@ -33,11 +25,11 @@ export class Pet {
         this._petName = value;
     }
 
-    getType(): Type {
+    getType(): string {
         return this._type;
     }
 
-    setType(value: Type) {
+    setType(value: string) {
         this._type = value;
     }
 
@@ -57,14 +49,6 @@ export class Pet {
         this._clean = value;
     }
 
-    getDeWorm(): boolean {
-        return this._deWorm;
-    }
-
-    setDeWorm(value: boolean) {
-        this._deWorm = value;
-    }
-
     getEatFull(): boolean {
         return this._eatFull;
     }
@@ -81,10 +65,6 @@ export class Pet {
     }
     vaccination():void{
         this._vaccine=true
-
-    }
-    deWorming():void{
-        this._deWorm=true
 
     }
 }

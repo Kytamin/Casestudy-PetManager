@@ -1,18 +1,31 @@
-import {CustomerManager} from "./CustomerManager";
-import {Cat} from "./typeofpet/Cat";
-import {Dog} from "./typeofpet/Dog";
-import {Mouse} from "./typeofpet/Mouse";
-import {Type} from "./Pet";
-let customerManager1= new CustomerManager()
-customerManager1.addCustomer("A","AAAA","0938288484",1,new Cat("Tom",Type.Cat,false,false,false,false))
-customerManager1.addCustomer("B","BBBB","1242363233",2,new Mouse("Jerry",Type.mouse, false,false,false,false))
-customerManager1.addCustomer("C","CCCC","7372124122",7,new Dog("Spite",Type.Dog, false,false,false,false))
-customerManager1.addCustomer("D","DDDD","0433531213",9,new Dog("Yasuo",Type.Dog, false,false,false,false))
-customerManager1.addCustomer("E","EEEE","3667133888",3,new Cat("Yone",Type.Cat, false,false,false,false))
-console.table(customerManager1.displayList())
-customerManager1.displayPetOfCustomer(1).feed()
-customerManager1.displayPetOfCustomer(1).deWorming()
-customerManager1.displayPetOfCustomer(2).vaccination()
-console.log(customerManager1.displayCustomer(1).getTotalMoney())
-console.log(customerManager1.displayCustomer(2).getTotalMoney())
-console.log(customerManager1.totalRevenue())
+// import {CustomerManager} from "./CustomerManager";
+//
+//
+// let customerManager1= new CustomerManager()
+// customerManager1.addCustomer("A","AAAA","0938288484",1)
+// customerManager1.addCustomer("B","BBBB","1242363233",2)
+// customerManager1.addCustomer("C","CCCC","7372124122",7)
+// customerManager1.addCustomer("D","DDDD","0433531213",9)
+// customerManager1.addCustomer("E","EEEE","3667133888",3)
+// console.table(customerManager1.displayList())
+// customerManager1.displayCustomer(1).addCat("Tom","Type.Cat",false,false,false)
+// customerManager1.displayCustomer(1).addDog("Spite","Type.Dog",false,false,false)
+// customerManager1.displayCustomer(2).addMouse("Jerry","Type.Mouse",false,false,false)
+// customerManager1.displayCustomer(2).addDog("Gow","Type.Dog",false,false,false)
+// customerManager1.displayCustomer(1).fixInfoPet("Tom","CONCAT","Type.Cat", false,false,false)
+// console.table(customerManager1.displayCustomer(1).getPetList())
+// console.table(customerManager1.displayCustomer(2).getPetList())
+// console.log(customerManager1.displayCustomer(1).findPet("CONCAT"))
+// customerManager1.displayCustomer(1).findPet("CONCAT").feed()
+// customerManager1.displayCustomer(1).findPet("Spite").vaccination()
+// console.table(customerManager1.displayCustomer(1).getPetList())
+// customerManager1.displayCustomer(2).findPet("Jerry").feed()
+// customerManager1.displayCustomer(2).findPet("Gow").vaccination()
+// console.table(customerManager1.displayCustomer(2).getPetList())
+// console.log("số tiền khách hàng:"+customerManager1.displayCustomer(1).getName()+"phải trả:"+customerManager1.displayCustomer(1).getTotalMoney())
+// console.log(customerManager1.displayCustomer(2).getTotalMoney())
+// console.log("tổng doanh thu hiện tại:"+customerManager1.totalRevenue())
+
+
+
+
