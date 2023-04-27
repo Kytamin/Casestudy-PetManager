@@ -78,6 +78,8 @@ export class Customer {
             if(pet!==undefined){
                 return pet
             }
+        }else {
+            console.log(`this Pet is not Exist`)
         }
         return this._pet[index]
     }
@@ -88,6 +90,8 @@ export class Customer {
         let index=this.FindPetByName(petName)
         if(index!==-1){
              this._pet.splice(index,1)
+        }else {
+            console.log("this pet is not Exist")
         }
     }
     fixInfoPet(petName:string,newName:string,type:string,vaccinated:boolean,clean:boolean,eatFull:boolean):void{
@@ -98,8 +102,9 @@ export class Customer {
             this._pet[index].setVaccine(vaccinated)
             this._pet[index].setClean(clean)
             this._pet[index].setEatFull(eatFull)
+        }else {
+            console.log("this pet is not Exist")
         }
-
     }
     getTotalMoney():number{
         let total=0

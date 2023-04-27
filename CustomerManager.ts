@@ -62,6 +62,8 @@ export class CustomerManager {
         let index = this.findInfoByID(id)
         if (index !== -1) {
             this.customerList.splice(index, 1)
+        }else {
+            console.log("this customer is not Exist")
         }
     }
 
@@ -72,6 +74,8 @@ export class CustomerManager {
             this.customerList[index].setAddress(address)
             this.customerList[index].setNumberPhone(numberPhone)
 
+        }else {
+            console.log(`this Customer is not Exist`)
         }
     }
 
@@ -84,6 +88,8 @@ export class CustomerManager {
             let customer= this.customerList[index]
             if(customer!==undefined){
                 return customer
+            }else {
+                console.log("there is no customer to display")
             }
 
         }
