@@ -3,8 +3,7 @@ import {nameRegex} from "./regexp/name";
 import {addressRegex} from "./regexp/address";
 import {phoneRegex} from "./regexp/phonenumber";
 import {idRegex} from "./regexp/id";
-
-
+import readlineSync from "readline-sync";
 let customerManager1 = new CustomerManager()
 let nameRegex1 = new nameRegex()
 let addressRegex1 = new addressRegex()
@@ -55,74 +54,165 @@ function customerSelection() {
             start()
             break;
         case 1: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input petName")
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)) {
+                    console.log("Please enter the correct type of pet name");
+                }
+            } while (!nameRegex1.validate(petName));
             let type = readlineSync.question("input Type")
             let vaccine = false
             let clean = false
             let eatFull = false
-            customerManager1.displayCustomer(id).addCat(petName, type, vaccine, clean, eatFull)
+            customerManager1.displayCustomer(+id).addCat(petName, type, vaccine, clean, eatFull)
             customerSelection()
             break;
         }
 
         case 2: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input petName")
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)) {
+                    console.log("Please enter the correct type of pet name");
+                }
+            } while (!nameRegex1.validate(petName));
             let type = readlineSync.question("input Type")
             let vaccine = false
             let clean = false
             let eatFull = false
-            customerManager1.displayCustomer(id).addDog(petName, type, vaccine, clean, eatFull)
+            customerManager1.displayCustomer(+id).addDog(petName, type, vaccine, clean, eatFull)
             customerSelection()
             break;
         }
         case 3: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input petName")
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)) {
+                    console.log("Please enter the correct type of pet name");
+                }
+            } while (!nameRegex1.validate(petName));
             let type = readlineSync.question("input Type")
             let vaccine = false
             let clean = false
             let eatFull = false
-            customerManager1.displayCustomer(id).addMouse(petName, type, vaccine, clean, eatFull)
+            customerManager1.displayCustomer(+id).addMouse(petName, type, vaccine, clean, eatFull)
             customerSelection()
             break;
         }
         case 4: {
-            let id = +readlineSync.question("inputID")
-            console.table(customerManager1.displayCustomer(id).getPetList())
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            console.table(customerManager1.displayCustomer(+id).getPetList())
             customerSelection()
             break;
         }
         case 5: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input PetName")
-            console.log(customerManager1.displayCustomer(id).findPet(petName))
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1) {
+                    console.log("Please enter the correct type of pet name");
+                }
+            } while (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1);
+            console.log(customerManager1.displayCustomer(+id).findPet(petName))
             petSelection()
             break;
         }
         case 6: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input PetName")
-            customerManager1.displayCustomer(id).deletePet(petName)
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1) {
+                    console.log("Please enter the correct type of pet name");
+                }
+            } while (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1);
+            customerManager1.displayCustomer(+id).deletePet(petName)
             customerSelection()
             break;
         }
         case 7: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input petName")
-            let newName = readlineSync.question("input new petName")
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1) {
+                    console.log("Please enter the correct type of pet name");
+                }
+            } while (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1);
+
+            let newName;
+            do {
+                newName = readlineSync.question("Input new Name");
+                if (!nameRegex1.validate(newName)) {
+                    console.log("Please enter the correct name");
+                }
+            } while (!nameRegex1.validate(newName));
             let type = readlineSync.question("input Type")
             let vaccinated = false
             let clean = false
             let eatFull = false
-            customerManager1.displayCustomer(id).fixInfoPet(petName, newName, type, vaccinated, clean, eatFull)
+            customerManager1.displayCustomer(+id).fixInfoPet(petName, newName, type, vaccinated, clean, eatFull)
             customerSelection()
             break;
         }
         case 8: {
-            let id = +readlineSync.question("inputID")
-            console.log("total money customer has id:" + id + "pay:" + customerManager1.displayCustomer(id).getTotalMoney())
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            console.log("total money customer has id:" + id + "pay:" + customerManager1.displayCustomer(+id).getTotalMoney())
             customerSelection()
             break;
         }
@@ -169,7 +259,7 @@ function start() {
                     console.log("Please enter the correct ID");
                 }
             } while (!idRegex1.validate(id));
-            customerManager1.addCustomer(customerName, address, numberPhone, id)
+            customerManager1.addCustomer(customerName, address, numberPhone, +id)
             start()
             break;
         }
@@ -178,23 +268,62 @@ function start() {
             start()
             break;
         case 3: {
-            let id = +readlineSync.question("Input ID")
-            customerManager1.deleteCustomer(id)
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            customerManager1.deleteCustomer(+id)
             start()
             break;
         }
         case 4: {
-            let id = +readlineSync.question("Input ID")
-            let name = readlineSync.question("Input new Name")
-            let address = readlineSync.question("Input new Address")
-            let numberPhone = readlineSync.question("Input new numberPhone")
-            customerManager1.fixInfo(id, name, address, numberPhone)
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let newName
+            do {
+                newName = readlineSync.question("Input new Name");
+                if (!nameRegex1.validate(newName)) {
+                    console.log("Please enter the correct name");
+                }
+            } while (!nameRegex1.validate(newName));
+
+            let address;
+            do {
+                address = readlineSync.question("Input address");
+                if (!addressRegex1.validate(address)) {
+                    console.log("Please enter the correct Address");
+                }
+            } while (!addressRegex1.validate(address));
+
+            let numberPhone;
+            do {
+                numberPhone = readlineSync.question("Input phoneNumber");
+                if (!phoneRegex1.validate(numberPhone)) {
+                    console.log("Please enter the correct phoneNumber");
+                }
+            } while (!phoneRegex1.validate(numberPhone));
+
+            customerManager1.fixInfo(+id, newName, address, numberPhone)
             start()
             break;
         }
         case 5: {
-            let id = +readlineSync.question("Input ID")
-            console.log(customerManager1.displayCustomer(id))
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            console.log(customerManager1.displayCustomer(+id))
             customerSelection()
             break;
         }
