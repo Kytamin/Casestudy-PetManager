@@ -3,7 +3,6 @@ import {nameRegex} from "./regexp/name";
 import {addressRegex} from "./regexp/address";
 import {phoneRegex} from "./regexp/phonenumber";
 import {idRegex} from "./regexp/id";
-import readlineSync from "readline-sync";
 let customerManager1 = new CustomerManager()
 let nameRegex1 = new nameRegex()
 let addressRegex1 = new addressRegex()
@@ -13,30 +12,66 @@ let idRegex1 = new idRegex()
 function petSelection() {
     const readlineSync = require('readline-sync')
     let Options = ["feed", "showerPet", "vaccination"]
-    let input = readlineSync.keyInSelect(Options, "choose a option", {cancel: "turnBack"}) + 1
+    let input = readlineSync.keyInSelect(Options, "choose an option", {cancel: "turnBack"}) + 1
     switch (input) {
         case 0:
             customerSelection()
             break;
         case 1: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input petName")
-            customerManager1.displayCustomer(id).findPet(petName).feed()
-            customerSelection()
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1) {
+                    console.log("Please enter the correct pet name");
+                }
+            } while (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1);
+            customerManager1.displayCustomer(+id).findPet(petName).feed()
+            petSelection()
             break;
         }
         case 2: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input petName")
-            customerManager1.displayCustomer(id).findPet(petName).showerPet()
-            customerSelection()
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1) {
+                    console.log("Please enter the correct pet name");
+                }
+            } while (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1);
+            customerManager1.displayCustomer(+id).findPet(petName).showerPet()
+            petSelection()
             break;
         }
         case 3: {
-            let id = +readlineSync.question("inputID")
-            let petName = readlineSync.question("input petName")
-            customerManager1.displayCustomer(id).findPet(petName).vaccination()
-            customerSelection()
+            let id
+            do {
+                id = readlineSync.question("Input ID");
+                if (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1) {
+                    console.log("Please enter the correct ID");
+                }
+            } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
+            let petName;
+            do {
+                petName = readlineSync.question("Input pet name");
+                if (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1) {
+                    console.log("Please enter the correct pet name");
+                }
+            } while (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1);
+            customerManager1.displayCustomer(+id).findPet(petName).vaccination()
+            petSelection()
             break;
         }
 
@@ -47,8 +82,8 @@ function petSelection() {
 
 function customerSelection() {
     const readlineSync = require('readline-sync')
-    let Options = ["addCat", "addDog", "addMouse", "getPetList", "findPet", "deletePet", "fixInfoPet", "getTotalMoney"]
-    let input = readlineSync.keyInSelect(Options, "choose a option", {cancel: "turnBack"}) + 1
+    let Options = ["addCat", "addDog", "addMouse", "getPetList", "findPet", "deletePet", "fixInfoPet", "getTotalMoney","petSelections"]
+    let input = readlineSync.keyInSelect(Options, "choose an option", {cancel: "turnBack"}) + 1
     switch (input) {
         case 0:
             start()
@@ -151,7 +186,7 @@ function customerSelection() {
                 }
             } while (!nameRegex1.validate(petName)||customerManager1.findInfoByID(+id)===-1||customerManager1.displayCustomer(+id).FindPetByName(petName)===-1);
             console.log(customerManager1.displayCustomer(+id).findPet(petName))
-            petSelection()
+            customerSelection()
             break;
         }
         case 6: {
@@ -216,6 +251,9 @@ function customerSelection() {
             customerSelection()
             break;
         }
+        case 9:
+            petSelection()
+            break;
 
     }
 }
@@ -223,9 +261,9 @@ function customerSelection() {
 
 function start() {
     const readlineSync = require('readline-sync')
-    let Options = ["addCustomer", "displayListCustomer", "deleteCustomer", "fixInfo", "FindCustomer", "totalRevenue",]
+    let Options = ["addCustomer", "displayListCustomer", "deleteCustomer", "fixInfo", "FindCustomer", "totalRevenue","customerSelection"]
 
-    let input = readlineSync.keyInSelect(Options, "choose a option") + 1
+    let input = readlineSync.keyInSelect(Options, "choose an option") + 1
     switch (input) {
         case 1: {
             let customerName;
@@ -324,7 +362,6 @@ function start() {
                 }
             } while (!idRegex1.validate(id)||customerManager1.findInfoByID(+id)===-1);
             console.log(customerManager1.displayCustomer(+id))
-            customerSelection()
             break;
         }
         case 6: {
@@ -332,7 +369,9 @@ function start() {
             start()
             break;
         }
+        case 7:
+            customerSelection()
+            break;
     }
 }
-
 start()
