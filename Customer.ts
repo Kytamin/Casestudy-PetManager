@@ -90,8 +90,6 @@ export class Customer {
         let index=this.FindPetByName(petName)
         if(index!==-1){
              this._pet.splice(index,1)
-        }else {
-            console.log("this pet is not Exist")
         }
     }
     fixInfoPet(petName:string,newName:string,type:string,vaccinated:boolean,clean:boolean,eatFull:boolean):void{
@@ -102,17 +100,17 @@ export class Customer {
             this._pet[index].setVaccine(vaccinated)
             this._pet[index].setClean(clean)
             this._pet[index].setEatFull(eatFull)
-        }else {
-            console.log("this pet is not Exist")
         }
     }
-    getTotalMoney():number{
+    isEmptyPet() {
+        return this._pet.length == 0;
+    }
+    customerTotalMoney():number{
         let total=0
         this._pet.forEach((element)=>{
             total+=element.countFeed*element.costFeed+element.countShower*element.costShower+element.countVaccination*element.costVaccination
         })
         return  total
     }
-
 
 }

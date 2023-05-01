@@ -1,31 +1,111 @@
-// import {CustomerManager} from "./CustomerManager";
-//
-//
-// let customerManager1= new CustomerManager()
-// customerManager1.addCustomer("A","AAAA","0938288484",1)
-// customerManager1.addCustomer("B","BBBB","1242363233",2)
-// customerManager1.addCustomer("C","CCCC","7372124122",7)
-// customerManager1.addCustomer("D","DDDD","0433531213",9)
-// customerManager1.addCustomer("E","EEEE","3667133888",3)
-// console.table(customerManager1.displayList())
-// customerManager1.displayCustomer(1).addCat("Tom","Type.Cat",false,false,false)
-// customerManager1.displayCustomer(1).addDog("Spite","Type.Dog",false,false,false)
-// customerManager1.displayCustomer(2).addMouse("Jerry","Type.Mouse",false,false,false)
-// customerManager1.displayCustomer(2).addDog("Gow","Type.Dog",false,false,false)
-// // customerManager1.displayCustomer(1).fixInfoPet("Tom","CONCAT","Type.Cat", false,false,false)
-// console.table(customerManager1.displayCustomer(1).getPetList())
-// console.table(customerManager1.displayCustomer(2).getPetList())
-// console.log(customerManager1.displayCustomer(1).findPet("Tom"))
-// customerManager1.displayCustomer(1).findPet("CONCAT").feed()
-// customerManager1.displayCustomer(1).findPet("Spite").vaccination()
-// console.table(customerManager1.displayCustomer(1).getPetList())
-// customerManager1.displayCustomer(2).findPet("Jerry").feed()
-// customerManager1.displayCustomer(2).findPet("Gow").vaccination()
-// console.table(customerManager1.displayCustomer(2).getPetList())
-// console.log("số tiền khách hàng:"+customerManager1.displayCustomer(1).getName()+"phải trả:"+customerManager1.displayCustomer(1).getTotalMoney())
-// console.log(customerManager1.displayCustomer(2).getTotalMoney())
-// console.log("tổng doanh thu hiện tại:"+customerManager1.totalRevenue())
+import {CustomerManager} from "./CustomerManager";
+import {nameRegex} from "./regex/name";
+import {addressRegex} from "./regex/address";
+import {phoneRegex} from "./regex/phonenumber";
+import {idRegex} from "./regex/id";
 
+import Menu from "./Menu";
+import {Customer} from "./Customer";
+let customerManager1 = new CustomerManager()
+let nameRegex1 = new nameRegex()
+let addressRegex1 = new addressRegex()
+let phoneRegex1 = new phoneRegex()
+let idRegex1 = new idRegex()
+const readlineSync = require('readline-sync')
 
+let customerManager = new CustomerManager();
+let flagApp = true;
 
+function start(): void{
+    while (flagApp) {
+        Menu.mainMenu();
+        let number = +readlineSync.question('Chose option: ')
+        switch (number) {
+            case 1:
+                customerManager.displayList();
+                start()
+                break;
+                case 2:
+                customerManager.addCustomer();
+                start()
+                break;
+            case 3:
+                customerManager.displayCustomer()
+                start()
+                break;
+            case 4:
+                customerManager.deleteCustomer()
+                start()
+                break;
+            case 5:
+                customerManager.fixInfoCustomer()
+                start()
+                break;
+            case 6: customer()
+                break;
+            case 7:pet()
+                break;
+            case 8:customerManager.totalRevenue()
+                start()
+                break
+            default:
+                flagApp = false;
+        }
+    }
+}
+function customer() {
+    while(flagApp){
+        Menu.customerMenu()
+        let number = +readlineSync.question('Chose option: ')
+        switch (number){
+            case 0:start()
+                break;
+            case 1:customerManager.petListCustomer()
+                customer()
+                break;
 
+            case 2:customerManager.addCat()
+                customer()
+                break;
+            case 3:customerManager.addDog()
+                customer()
+                break;
+            case 4:customerManager.addMouse()
+                customer()
+                break;
+            case 5:customerManager.findPet()
+                customer()
+                break;
+            case 6:customerManager.fixInfoPet()
+                customer()
+            case 7:customerManager.deletePet()
+                customer()
+                break;
+            case 8:customerManager.pay()
+                customer()
+                break;
+        }
+
+    }
+}
+function pet() {
+    while (flagApp){
+        Menu.petMenu()
+        let number = +readlineSync.question('Chose option: ')
+        switch (number){
+            case 0:start()
+                break;
+            case 1:customerManager.feedPet()
+                pet()
+                break;
+            case 2:customerManager.showerPet()
+                pet()
+                break;
+            case 3:customerManager.vaccinationPet()
+                pet()
+                break;
+        }
+    }
+
+}
+start();
