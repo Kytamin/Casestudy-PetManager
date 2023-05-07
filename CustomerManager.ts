@@ -11,9 +11,10 @@ let phoneRegex1 = new phoneRegex()
 
 const readlineSync = require('readline-sync')
 
-export class CustomerManager {
+export class  CustomerManager {
     customerList: Customer[] = []
     size: number = 0
+    revenue:number=0
 
     checkIDinList(id: number): boolean {
         let customerFilter = this.customerList.filter((item: any) => item._id == id)
@@ -26,35 +27,26 @@ export class CustomerManager {
         let id;
         do {
             id = +readlineSync.question('Enter id customer: ');
-            if (!idRegex1.validate(id)||this.checkIDinList(id)) {
-                console.log(`please  re enter the ID`)
-            } else {
-                check = false;
-            }
+            !idRegex1.validate(id) || this.checkIDinList(id) ? console.log(`please  re enter the ID`):check= false
         } while (!idRegex1.validate(id)||check)
 
         let name;
         do {
             name = readlineSync.question("Input Name");
-            if (!nameRegex1.validate(name)) {
-                console.log("Please enter the correct name");
-            }
+            console.log(!nameRegex1.validate(name)?"Please enter the correct name":"")
         } while (!nameRegex1.validate(name));
+
         let phone;
         do {
             phone = readlineSync.question("Input phoneNumber");
-            if (!phoneRegex1.validate(phone)) {
-                console.log("Please enter the correct phoneNumber");
-            }
+            console.log(!phoneRegex1.validate(phone)?"Please enter the correct phoneNumber":"")
         } while (!phoneRegex1.validate(phone));
+
         let address;
         do {
             address = readlineSync.question("Input address");
-            if (!addressRegex1.validate(address)) {
-                console.log("Please enter the correct Address");
-            }
+            console.log(!addressRegex1.validate(address)?"Please enter the correct Address":"")
         } while (!addressRegex1.validate(address));
-
         let customer = new Customer(name, address, phone, id)
         this.customerList.push(customer)
         this.customerList.sort((customer1, customer2) => {
@@ -62,20 +54,19 @@ export class CustomerManager {
         })
         console.log('Add customer success!')
     }
-
     displayList(): void {
-        if (this.isEmptyCustomer()) {
-            console.log('Customer is empty')
-        } else {
-            console.table(this.customerList)
-        }
-
+        this.isEmptyCustomer()?console.log('Customer List is empty'):console.table(this.customerList)
     }
-
     isEmptyCustomer() {
         return this.customerList.length == 0;
     }
-
+    isCheckEmptyCustomer(){
+        if(this.isEmptyCustomer()) {
+            console.log("List customer is Empty")
+            return true
+        }
+        return false
+    }
     findInfoByID(id: number): number {
         let low: number = 0;
         let high: number = this.customerList.length - 1;
@@ -96,17 +87,11 @@ export class CustomerManager {
     }
 
     deleteCustomer() {
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty already`)
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         this.customerList.splice(index, 1)
@@ -115,108 +100,68 @@ export class CustomerManager {
 
 
     fixInfoCustomer(): void {
-        if (this.isEmptyCustomer()) {
-            console.log('Customer is empty')
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         let name;
         do {
             name = readlineSync.question("Input new Name");
-            if (!nameRegex1.validate(name)) {
-                console.log("Please enter the correct new name");
-            }
+            console.log(!nameRegex1.validate(name)?"Please enter the correct new name":"")
         } while (!nameRegex1.validate(name));
         let phone;
         do {
             phone = readlineSync.question("Input  new phoneNumber");
-            if (!phoneRegex1.validate(phone)) {
-                console.log("Please enter the correct new phoneNumber");
-            }
+            console.log(!phoneRegex1.validate(phone)?"Please enter the correct new phoneNumber":"")
         } while (!phoneRegex1.validate(phone));
         let address;
         do {
             address = readlineSync.question("Input new address");
-            if (!addressRegex1.validate(address)) {
-                console.log("Please enter the correct Address");
-            }
+            console.log(!addressRegex1.validate(address)?"Please enter the correct Address":"")
         } while (!addressRegex1.validate(address));
         this.customerList[index].setName(name)
         this.customerList[index].setAddress(address)
         this.customerList[index].setNumberPhone(phone)
 
     }
-
-
     displayCustomer(): void {
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty`)
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
-
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         console.log(this.customerList[index])
     }
-
-
-
+    numberOfCustomers():void{
+        console.log(`current number of customer: ${this.size}`)
+    }
     petListCustomer() :void{
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
-        if (this.customerList[index].isEmptyPet()) {
-            console.log(`List is Empty`)
-        } else {
-            console.table(this.customerList[index].getPetList())
-        }
+        this.customerList[index].isEmptyPet()?console.log(`List is Empty`):console.table(this.customerList[index].getPetList())
     }
-
     addCat(): void {
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         let name;
         do {
             name = readlineSync.question("Input Cat Name");
-            if (!nameRegex1.validate(name)) {
-                console.log("Please enter the correct Cat name");
-            }
+            console.log(!nameRegex1.validate(name)?"Please enter the correct Cat name":"")
         } while (!nameRegex1.validate(name));
         let type = readlineSync.question("Input Type")
         let vaccine = false
@@ -225,25 +170,17 @@ export class CustomerManager {
         this.customerList[index].addCat(name,type,vaccine,clean,eatFull)
     }
     addDog():void{
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         let name;
         do {
             name = readlineSync.question("Input Dog Name");
-            if (!nameRegex1.validate(name)) {
-                console.log("Please enter the correct Dog name");
-            }
+            console.log(!nameRegex1.validate(name)?"Please enter the correct Dog name":"")
         } while (!nameRegex1.validate(name));
         let type = readlineSync.question("Input Type")
         let vaccine = false
@@ -252,25 +189,17 @@ export class CustomerManager {
         this.customerList[index].addDog(name,type,vaccine,clean,eatFull)
     }
     addMouse():void{
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         let name;
         do {
             name = readlineSync.question("Input Mouse Name");
-            if (!nameRegex1.validate(name)) {
-                console.log("Please enter the correct Mouse name");
-            }
+            console.log(!nameRegex1.validate(name)?"Please enter the correct Mouse name":"")
         } while (!nameRegex1.validate(name));
         let type = readlineSync.question("Input Type")
         let vaccine = false
@@ -279,17 +208,11 @@ export class CustomerManager {
         this.customerList[index].addMouse(name,type,vaccine,clean,eatFull)
     }
     findPet():void{
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
@@ -299,24 +222,17 @@ export class CustomerManager {
         let petName;
         do {
             petName = readlineSync.question("Input pet name");
-            if (this.customerList[index].FindPetByName(petName)===-1) {
-                console.log("Please enter the correct pet name");
-            }
+            console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         console.table(this.customerList[index].findPet(petName))
     }
-    fixInfoPet(){
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+
+    fixInfoPet():void{
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
@@ -326,16 +242,12 @@ export class CustomerManager {
         let petName;
         do {
             petName = readlineSync.question("Input pet name");
-            if (this.customerList[index].FindPetByName(petName)===-1) {
-                console.log("Please enter the correct  pet name");
-            }
+            console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         let newName;
         do {
             newName = readlineSync.question("Input new Pet Name");
-            if (!nameRegex1.validate(newName)) {
-                console.log("Please enter the correct new name");
-            }
+            console.log(!nameRegex1.validate(newName)?"Please enter the correct new name":"")
         } while (!nameRegex1.validate(newName));
         let type=readlineSync.question("Input Type")
         let vaccinated=false
@@ -343,18 +255,12 @@ export class CustomerManager {
         let eatFull=false
         this.customerList[index].fixInfoPet(petName,newName,type,vaccinated,clean,eatFull)
     }
-    deletePet(){
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+    deletePet():void{
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
@@ -364,40 +270,39 @@ export class CustomerManager {
         let petName;
         do {
             petName = readlineSync.question("Input pet name");
-            if (this.customerList[index].FindPetByName(petName)===-1) {
-                console.log("Please enter the correct  pet name");
-            }
+            console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
          this.customerList[index].deletePet(petName)
     }
-    pay(){
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+    bill():void{
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
+        console.table(this.customerList[index].getPetList())
         console.log("the price that customer id: "+id+" "+"has to pay is :"+this.customerList[index].customerTotalMoney())
+
     }
-    feedPet(){
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+    pay():void{
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
+        } while (this.findInfoByID(+id) === -1);
+        let index = this.findInfoByID(+id)
+        this.revenue+=this.customerList[index].customerTotalMoney()
+        this.customerList.splice(index, 1)
+    }
+    feedPet():void{
+        if(this.isCheckEmptyCustomer()) return
+        let id
+        do {
+            id = readlineSync.question("Input ID");
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
@@ -407,24 +312,16 @@ export class CustomerManager {
         let petName;
         do {
             petName = readlineSync.question("Input pet name");
-            if (this.customerList[index].FindPetByName(petName)===-1) {
-                console.log("Please enter the correct  pet name");
-            }
+            console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         this.customerList[index].findPet(petName).feed()
     }
-    showerPet(){
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+    showerPet():void{
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
@@ -434,24 +331,16 @@ export class CustomerManager {
         let petName;
         do {
             petName = readlineSync.question("Input pet name");
-            if (this.customerList[index].FindPetByName(petName)===-1) {
-                console.log("Please enter the correct  pet name");
-            }
+            console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         this.customerList[index].findPet(petName).showerPet()
     }
-    vaccinationPet(){
-        if(this.isEmptyCustomer()){
-            console.log(`Customer list is Empty to do any thing`)
-            return
-        }
+    vaccinationPet():void{
+        if(this.isCheckEmptyCustomer()) return
         let id
         do {
             id = readlineSync.question("Input ID");
-
-            if (this.findInfoByID(+id) === -1) {
-                console.log("Please enter the correct ID");
-            }
+            console.log(this.findInfoByID(+id) === -1?"Please enter the correct ID":"")
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
@@ -461,20 +350,11 @@ export class CustomerManager {
         let petName;
         do {
             petName = readlineSync.question("Input pet name");
-            if (this.customerList[index].FindPetByName(petName)===-1) {
-                console.log("Please enter the correct  pet name");
-            }
+            console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         this.customerList[index].findPet(petName).vaccination()
     }
     totalRevenue(): void {
-        let sum = 0
-        for (let i = 0; i < this.customerList.length; i++) {
-            sum += this.customerList[i].customerTotalMoney()
-        }
-        console.log(`Current TotalRevenue : ${sum}`)
+        console.log(`totalRevenue: ${this.revenue}`)
     }
-
-
-
 }

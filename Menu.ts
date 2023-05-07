@@ -8,6 +8,7 @@ class Menu {
         console.log('6: Customer options')
         console.log('7: Pet options')
         console.log('8: TotalRevenue')
+        console.log('9: Number of customers')
         console.log('0: Exit')
     }
 
@@ -19,7 +20,8 @@ class Menu {
         console.log('5: Find Pet')
         console.log('6: Fix info Pet')
         console.log('7: Delete pet')
-        console.log('8: Pay')
+        console.log('8: Bill')
+        console.log('9: Pay')
         console.log('0: Turn back')
     }
     static petMenu(){

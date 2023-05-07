@@ -11,7 +11,10 @@ export class Customer {
     protected _pet:Array<Cat|Dog|Mouse>=[]
 
 
-    constructor(name: string, address: string, numberPhone: string, id: number) {
+    constructor(name: string,
+                address: string,
+                numberPhone: string,
+                id: number) {
         this._name = name;
         this._address = address;
         this._numberPhone = numberPhone;
@@ -50,13 +53,25 @@ export class Customer {
         this._id = value;
     }
 
-   addCat(petName:string,type:string,vaccine: boolean, clean: boolean,eatFull: boolean){
+   addCat(petName:string,
+          type:string,
+          vaccine: boolean,
+          clean: boolean,
+          eatFull: boolean){
         this._pet.push(new Cat(petName,type,vaccine,clean,eatFull))
     }
-    addDog(petName:string,type:string,vaccine: boolean, clean: boolean, eatFull: boolean){
+    addDog(petName:string,
+           type:string,
+           vaccine: boolean,
+           clean: boolean,
+           eatFull: boolean){
         this._pet.push(new Dog(petName,type,vaccine,clean,eatFull))
     }
-    addMouse(petName:string,type:string,vaccine: boolean, clean: boolean, eatFull: boolean){
+    addMouse(petName:string,
+             type:string,
+             vaccine: boolean,
+             clean: boolean,
+             eatFull: boolean){
         this._pet.push(new Mouse(petName,type,vaccine,clean,eatFull))
     }
     getPetList():Array<Cat|Dog|Mouse>{
@@ -92,7 +107,12 @@ export class Customer {
              this._pet.splice(index,1)
         }
     }
-    fixInfoPet(petName:string,newName:string,type:string,vaccinated:boolean,clean:boolean,eatFull:boolean):void{
+    fixInfoPet(petName:string,
+               newName:string,
+               type:string,
+               vaccinated:boolean,
+               clean:boolean,
+               eatFull:boolean):void{
         let index=this.FindPetByName(petName)
         if(index!==-1){
             this._pet[index].setPetName(newName)
@@ -105,6 +125,7 @@ export class Customer {
     isEmptyPet() {
         return this._pet.length == 0;
     }
+
     customerTotalMoney():number{
         let total=0
         this._pet.forEach((element)=>{

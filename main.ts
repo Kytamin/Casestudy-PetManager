@@ -1,22 +1,10 @@
 import {CustomerManager} from "./CustomerManager";
-import {nameRegex} from "./regex/name";
-import {addressRegex} from "./regex/address";
-import {phoneRegex} from "./regex/phonenumber";
-import {idRegex} from "./regex/id";
-
 import Menu from "./Menu";
-import {Customer} from "./Customer";
-let customerManager1 = new CustomerManager()
-let nameRegex1 = new nameRegex()
-let addressRegex1 = new addressRegex()
-let phoneRegex1 = new phoneRegex()
-let idRegex1 = new idRegex()
 const readlineSync = require('readline-sync')
-
 let customerManager = new CustomerManager();
 let flagApp = true;
 
-function start(): void{
+function start(): void {
     while (flagApp) {
         Menu.mainMenu();
         let number = +readlineSync.question('Chose option: ')
@@ -25,7 +13,7 @@ function start(): void{
                 customerManager.displayList();
                 start()
                 break;
-                case 2:
+            case 2:
                 customerManager.addCustomer();
                 start()
                 break;
@@ -41,71 +29,96 @@ function start(): void{
                 customerManager.fixInfoCustomer()
                 start()
                 break;
-            case 6: customer()
+            case 6:
+                customerManager.isCheckEmptyCustomer() ? start() : customer()
                 break;
-            case 7:pet()
+            case 7:
+                customerManager.isCheckEmptyCustomer() ? start() : pet()
                 break;
-            case 8:customerManager.totalRevenue()
+            case 8:
+                customerManager.totalRevenue()
                 start()
-                break
+                break;
+            case 9:
+                customerManager.numberOfCustomers()
+                break;
             default:
                 flagApp = false;
         }
     }
 }
+
 function customer() {
-    while(flagApp){
+    while (flagApp) {
         Menu.customerMenu()
         let number = +readlineSync.question('Chose option: ')
-        switch (number){
-            case 0:start()
+        switch (number) {
+            case 0:
+                start()
                 break;
-            case 1:customerManager.petListCustomer()
+            case 1:
+                customerManager.petListCustomer()
                 customer()
                 break;
 
-            case 2:customerManager.addCat()
+            case 2:
+                customerManager.addCat()
                 customer()
                 break;
-            case 3:customerManager.addDog()
+            case 3:
+                customerManager.addDog()
                 customer()
                 break;
-            case 4:customerManager.addMouse()
+            case 4:
+                customerManager.addMouse()
                 customer()
                 break;
-            case 5:customerManager.findPet()
+            case 5:
+                customerManager.findPet()
                 customer()
                 break;
-            case 6:customerManager.fixInfoPet()
+            case 6:
+                customerManager.fixInfoPet()
                 customer()
-            case 7:customerManager.deletePet()
+            case 7:
+                customerManager.deletePet()
                 customer()
                 break;
-            case 8:customerManager.pay()
+            case 8:
+                customerManager.bill()
+                customer()
+                break;
+            case 9:customerManager.pay()
                 customer()
                 break;
         }
 
     }
 }
+
 function pet() {
-    while (flagApp){
+    while (flagApp) {
         Menu.petMenu()
         let number = +readlineSync.question('Chose option: ')
-        switch (number){
-            case 0:start()
+        switch (number) {
+            case 0:
+                start()
                 break;
-            case 1:customerManager.feedPet()
+            case 1:
+                customerManager.feedPet()
                 pet()
                 break;
-            case 2:customerManager.showerPet()
+            case 2:
+                customerManager.showerPet()
                 pet()
                 break;
-            case 3:customerManager.vaccinationPet()
+            case 3:
+                customerManager.vaccinationPet()
                 pet()
                 break;
         }
     }
 
 }
+
 start();

@@ -8,8 +8,11 @@ export class Pet {
     private _clean:boolean
     private _eatFull:boolean
 
-
-    constructor(petName: string, type: string, vaccine: boolean, clean: boolean, eatFull: boolean) {
+    constructor(petName: string,
+                type: string,
+                vaccine: boolean,
+                clean: boolean,
+                eatFull: boolean) {
         this._petName = petName;
         this._type = type;
         this._vaccine = vaccine;
