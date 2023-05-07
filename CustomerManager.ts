@@ -52,17 +52,17 @@ export class  CustomerManager {
         this.customerList.sort((customer1, customer2) => {
             return customer1.getID() - customer2.getID()
         })
-        console.log('Add customer success!')
+        console.log('-Add customer success!')
     }
     displayList(): void {
-        this.isEmptyCustomer()?console.log('Customer List is empty'):console.table(this.customerList)
+        this.isEmptyCustomer()?console.log('-Customer List is empty'):console.table(this.customerList)
     }
     isEmptyCustomer() {
         return this.customerList.length == 0;
     }
     isCheckEmptyCustomer(){
         if(this.isEmptyCustomer()) {
-            console.log("List customer is Empty")
+            console.log("-Customer List is empty")
             return true
         }
         return false
@@ -168,6 +168,7 @@ export class  CustomerManager {
         let clean = false
         let eatFull= false
         this.customerList[index].addCat(name,type,vaccine,clean,eatFull)
+        console.log(`-Add pet success`)
     }
     addDog():void{
         if(this.isCheckEmptyCustomer()) return
@@ -187,6 +188,7 @@ export class  CustomerManager {
         let clean = false
         let eatFull= false
         this.customerList[index].addDog(name,type,vaccine,clean,eatFull)
+        console.log(`-Add pet success`)
     }
     addMouse():void{
         if(this.isCheckEmptyCustomer()) return
@@ -206,6 +208,7 @@ export class  CustomerManager {
         let clean = false
         let eatFull= false
         this.customerList[index].addMouse(name,type,vaccine,clean,eatFull)
+        console.log(`-Add pet success`)
     }
     findPet():void{
         if(this.isCheckEmptyCustomer()) return
@@ -216,7 +219,7 @@ export class  CustomerManager {
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
-            console.log(`this pet list is empty`)
+            console.log(`-this pet list is empty`)
             return;
         }
         let petName;
@@ -236,7 +239,7 @@ export class  CustomerManager {
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
-            console.log(`this pet list is empty`)
+            console.log(`-this pet list is empty`)
             return;
         }
         let petName;
@@ -315,6 +318,7 @@ export class  CustomerManager {
             console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         this.customerList[index].findPet(petName).feed()
+        console.log(`-feed pet complete`)
     }
     showerPet():void{
         if(this.isCheckEmptyCustomer()) return
@@ -334,6 +338,7 @@ export class  CustomerManager {
             console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         this.customerList[index].findPet(petName).showerPet()
+        console.log(`-shower pet complete`)
     }
     vaccinationPet():void{
         if(this.isCheckEmptyCustomer()) return
@@ -344,7 +349,7 @@ export class  CustomerManager {
         } while (this.findInfoByID(+id) === -1);
         let index = this.findInfoByID(+id)
         if(this.customerList[index].isEmptyPet()){
-            console.log(`this pet list is empty`)
+            console.log(`-this pet list is empty`)
             return;
         }
         let petName;
@@ -353,6 +358,7 @@ export class  CustomerManager {
             console.log(this.customerList[index].FindPetByName(petName)===-1?"Please enter the correct  pet name":"")
         } while (this.customerList[index].FindPetByName(petName)===-1);
         this.customerList[index].findPet(petName).vaccination()
+        console.log(`-Vaccination pet complete`)
     }
     totalRevenue(): void {
         console.log(`totalRevenue: ${this.revenue}`)

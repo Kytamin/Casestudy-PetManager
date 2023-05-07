@@ -6,7 +6,7 @@ class Menu {
         console.log('4: Delete customer')
         console.log('5: Fix info customer')
         console.log('6: Customer options')
-        console.log('7: Pet options')
+        console.log('7: Service Pet')
         console.log('8: TotalRevenue')
         console.log('9: Number of customers')
         console.log('0: Exit')
