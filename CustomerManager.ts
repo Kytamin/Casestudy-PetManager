@@ -299,6 +299,7 @@ export class  CustomerManager {
         let index = this.findInfoByID(+id)
         this.revenue+=this.customerList[index].customerTotalMoney()
         this.customerList.splice(index, 1)
+        console.log(`Payment success`)
     }
     feedPet():void{
         if(this.isCheckEmptyCustomer()) return
